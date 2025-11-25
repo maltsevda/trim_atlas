@@ -21,7 +21,7 @@ ELEMENT_IMAGES = 'images'
 ATTR_IMAGE = 'image'
 ATTR_PIVOT_X = 'pivot_x'
 ATTR_PIVOT_Y = 'pivot_y'
-ATTR_BORDERS = 'extrude_borders'
+ATTR_BORDERS = 'inner_padding'
 EXT_BAK = '.bak'
 
 # ------------------------------------------------------------------------------
@@ -65,6 +65,8 @@ def get_source_pivot(element: deftree.Element) -> tuple[float, float]:
 # Modifying the original pivot point of the sprite with its new dimensions
 def calc_pivot(source_size: tuple[int, int], source_pivot: tuple[float, float],
                sprite_bbox:  tuple[int, int, int, int], border: int) -> tuple[float, float]:
+    if sprite_bbox is None:
+        return (source_pivot[0], source_pivot[1])
     source_w, source_h = source_size[0], source_size[1]
     sprite_x, sprite_y = sprite_bbox[0], sprite_bbox[1]
     sprite_w, sprite_h = sprite_bbox[2] - sprite_bbox[0], sprite_bbox[3] - sprite_bbox[1]
